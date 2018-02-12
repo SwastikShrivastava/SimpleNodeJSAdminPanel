@@ -1,0 +1,29 @@
+{
+  "name": "admin",
+  "version": "0.0.1",
+  "description": "a simple nodejs admin panel",
+  "main": "app.js",
+  "scripts": {
+    "test": "console.log(\"hello world\")"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwastikShrivastava/SimpleNodeJSAdminPanel.git"
+  },
+  "keywords": [
+    "admin",
+    "panel"
+  ],
+  "author": "Swastik Shrivastava",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SwastikShrivastava/SimpleNodeJSAdminPanel/issues"
+  },
+  "homepage": "https://github.com/SwastikShrivastava/SimpleNodeJSAdminPanel#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "path": "^0.12.7"
+  }
+}
