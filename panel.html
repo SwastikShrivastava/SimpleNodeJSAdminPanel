@@ -11,34 +11,180 @@
  <nav class="black z-depth-5">
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo center"><i class="material-icons">build</i>SIP ADMIN</a>
+      <ul id="nav-mobile" class="right">
+        <li><a class="waves-effect waves-light btn grey z-depth-5" id="logout">Logout</a></li>
+      </ul>
     </div>
   </nav>
 
-
+<div class="container">
+		<br>
+		<br>
+      <div class="row">
+        <div class="input-field col s4">
+          <i class="material-icons prefix">monetization_on</i>
+          <input id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">Enter Address</label>
+        </div>
+        <div class="col s4 center">
+          <a class="waves-effect waves-light btn black z-depth-5" id="get_sip_bal">Get SIP Balance<i class="material-icons right">send</i></a>
+        </div>
+        <div class="col s4">
+        	<div class="chip" id="set_bal">
+			    Value will be displayed here.
+			</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <i class="material-icons prefix">monetization_on</i>
+          <input id="icon_eth" type="text" class="validate">
+          <label for="icon_eth">Enter Address</label>
+        </div>
+        <div class="col s4 center">
+          <a class="waves-effect waves-light btn black z-depth-5" id="get_eth_bal">Get ETH Balance<i class="material-icons right">send</i></a>
+        </div>
+        <div class="col s4">
+        	<div class="chip" id="set_bal_eth">
+			    Value will be displayed here.
+			</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <i class="material-icons prefix">person</i>
+          <input id="account_frozen" type="text" class="validate">
+          <label for="account_frozen">Enter Address</label>
+        </div>
+        <div class="col s4 center">
+          <a class="waves-effect waves-light btn black z-depth-5" id="acct_frzn">Is Account Frozen<i class="material-icons right">send</i></a>
+        </div>
+        <div class="col s4">
+        	<div class="chip">
+			    True/False will be displayed here.
+			</div>
+        </div>
+      </div>
+      <div class="row">
+      	<div class="col s12 center" id="loader" style="display: none">
+      		<img src="public/loader.gif" height="50px" width="auto" >
+      	</div>
+      </div>
+</div>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 	<script type="text/javascript">
-		$("#submit_form").click(function(){
-			var settings = {
-				  "async": true,
-				  "crossDomain": true,
-				  "url": "http://localhost:3000/login",
-				  "method": "POST",
-				  "headers": {
-				    "content-type": "application/x-www-form-urlencoded",
-				    "cache-control": "no-cache"
-				  },
-				  "data": {
-				    "username": $("#icon_prefix").val(),
-				    "password": $("#icon_lock").val()
-				  }
-				}
+		$(document).ready(function(){
+			Materialize.toast('Login Successful!', 4000)
+		});
 
-				$.ajax(settings).done(function (response) {
-				  console.log(response);
-				  window.location = "/panel";
-				});
+		$("#logout").click(function(){
+			window.location = "/login";
+		});
+
+		var c_addr = "0xf5797ef01af8b94b6396020ec817fc3c6a2b737a";
+		var apikey = "RJMYMM7ZKYX5HPZPMBNC14UXHSJYQ42HWZ";
+
+
+		$("#get_sip_bal").click(function(){
+			if($("#get_sip_bal").val()!=undefined)
+			{
+				$("#loader").css("display","block");
+				$(this).addClass("disabled");
+				$("#acct_frzn").addClass("disabled");
+				setTimeout(function(){
+					var url= "https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress="+c_addr+"&address="+$("#icon_prefix").val().toString()+"&tag=latest&apikey="+apikey
+						var settings = {
+						  "async": true,
+						  "crossDomain": true,
+						  "url": url,
+						  "method": "GET",
+						  "headers": {
+						    "content-type": "application/x-www-form-urlencoded"
+						  }
+						}
+
+						$.ajax(settings).done(function (response) {
+						  console.log(response);
+						  if(response.status==1)
+						  {
+						  	$("#loader").css("display","none");
+							$("#get_sip_bal").removeClass("disabled");
+							$("#acct_frzn").removeClass("disabled");
+							$("#set_bal").text(response.result/1000000000000000000 + ' SIP');
+						  }
+						  else
+						  {
+						  	$("#loader").css("display","none");
+							$("#get_sip_bal").removeClass("disabled");
+							$("#acct_frzn").removeClass("disabled");
+							Materialize.toast('Error Occured! Try Again', 4000)
+						  }
+						});
+				},1000)
+			}
+			else{
+				Materialize.toast('Enter Address!', 4000)
+			}
+			
+		});
+
+		$("#get_eth_bal").click(function(){
+			if($("#get_eth_bal").val()!=undefined)
+			{
+				$("#loader").css("display","block");
+				$(this).addClass("disabled");
+				$("#acct_frzn").addClass("disabled");
+				setTimeout(function(){
+					var url= "https://api.etherscan.io/api?module=account&action=balance&address="+$("#icon_eth").val().toString()+"&tag=latest&apikey="+apikey;
+						var settings = {
+						  "async": true,
+						  "crossDomain": true,
+						  "url": url,
+						  "method": "GET",
+						  "headers": {
+						    "content-type": "application/x-www-form-urlencoded"
+						  }
+						}
+
+						$.ajax(settings).done(function (response) {
+						  console.log(response);
+						  if(response.status==1)
+						  {
+						  	$("#loader").css("display","none");
+							$("#get_eth_bal").removeClass("disabled");
+							$("#acct_frzn").removeClass("disabled");
+							$("#set_bal_eth").text(response.result/1000000000000000000 + ' ETH');
+						  }
+						  else
+						  {
+						  	$("#loader").css("display","none");
+							$("#get_eth_bal").removeClass("disabled");
+							$("#acct_frzn").removeClass("disabled");
+							Materialize.toast('Error Occured! Try Again', 4000)
+						  }
+						});
+				},1000)
+			}
+			else{
+				Materialize.toast('Enter Address!', 4000)
+			}
+			
+		});
+
+		$("#acct_frzn").click(function(){
+			if($("#acct_frzn").val()!='')
+			{
+				$("#loader").css("display","block");
+				$(this).addClass("disabled");
+				$("#get_sip_bal").addClass("disabled");
+			}
+			else{
+				Materialize.toast('Enter Address!', 4000)
+			}
 		});
 	</script>
 </body>
 </html>
+
+<!-- https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xf5797ef01af8b94b6396020ec817fc3c6a2b737a&address=0xe18228d66c4dcf008267a3e64ea6ecca45968f7f&tag=latest&apikey=RJMYMM7ZKYX5HPZPMBNC14UXHSJYQ42HWZ -->

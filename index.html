@@ -32,13 +32,18 @@
       </div>
     </form>
     <div class="col s12 center">
-    	<a class="waves-effect waves-light btn-large black z-depth-5" id="submit_form">Large Button<i class="material-icons right">send</i></a>
+    	<a class="waves-effect waves-light btn-large black z-depth-5" id="submit_form">Login<i class="material-icons right">send</i></a>
     </div>
   </div>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function(){
+			Materialize.toast('Login to Continue!', 4000)
+		});
+
+
 		$("#submit_form").click(function(){
 			var settings = {
 				  "async": true,
