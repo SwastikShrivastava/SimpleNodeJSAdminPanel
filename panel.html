@@ -23,37 +23,27 @@
 
 
 
+
+
+
+
       <div class="row">
         <div class="input-field col s4">
           <i class="material-icons prefix">monetization_on</i>
-          <input id="icon_prefix" type="text" class="validate">
-          <label for="icon_prefix">Enter Address</label>
+          <input id="get_bal" type="text" class="validate">
+          <label for="get_bal">Enter Address</label>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn black z-depth-5" id="get_sip_bal">Get SIP Balance<i class="material-icons right">send</i></a>
+          <a class="waves-effect waves-light btn black z-depth-5" id="get_acnt_bal">Get Balance<i class="material-icons right">send</i></a>
         </div>
-        <div class="col s4">
-        	<div class="chip" id="set_bal">
-			    Value will be displayed here.
+        <div class="col s2">
+        	<div class="chip" id="set_tok_bal">
+			    Token Balance
 			</div>
         </div>
-      </div>
-
-
-
-
-      <div class="row">
-        <div class="input-field col s4">
-          <i class="material-icons prefix">monetization_on</i>
-          <input id="icon_eth" type="text" class="validate">
-          <label for="icon_eth">Enter Address</label>
-        </div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn black z-depth-5" id="get_eth_bal">Get ETH Balance<i class="material-icons right">send</i></a>
-        </div>
-        <div class="col s4">
-        	<div class="chip" id="set_bal_eth">
-			    Value will be displayed here.
+         <div class="col s2">
+        	<div class="chip" id="set_eth_bal">
+			    Ether Balance
 			</div>
         </div>
       </div>
@@ -130,91 +120,43 @@
 		var apikey = "RJMYMM7ZKYX5HPZPMBNC14UXHSJYQ42HWZ";
 
 
-		$("#get_sip_bal").click(function(){
-			if($("#get_sip_bal").val()!=undefined)
-			{
-				$("#loader").css("display","block");
-				$(this).addClass("disabled");
-				$("#acct_frzn").addClass("disabled");
-				setTimeout(function(){
-					var url= "https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress="+c_addr+"&address="+$("#icon_prefix").val().toString()+"&tag=latest&apikey="+apikey
-						var settings = {
-						  "async": true,
-						  "crossDomain": true,
-						  "url": url,
-						  "method": "GET",
-						  "headers": {
-						    "content-type": "application/x-www-form-urlencoded"
-						  }
-						}
 
-						$.ajax(settings).done(function (response) {
-						  console.log(response);
-						  if(response.status==1)
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_sip_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							$("#set_bal").text(response.result/1000000000000000000 + ' SIP');
-						  }
-						  else
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_sip_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							Materialize.toast('Error Occured! Try Again', 4000)
-						  }
-						});
-				},1000)
-			}
-			else{
-				Materialize.toast('Enter Address!', 4000)
-			}
-			
-		});
 
-		$("#get_eth_bal").click(function(){
-			if($("#get_eth_bal").val()!=undefined)
-			{
-				$("#loader").css("display","block");
-				$(this).addClass("disabled");
-				$("#acct_frzn").addClass("disabled");
-				setTimeout(function(){
-					var url= "https://api.etherscan.io/api?module=account&action=balance&address="+$("#icon_eth").val().toString()+"&tag=latest&apikey="+apikey;
-						var settings = {
-						  "async": true,
-						  "crossDomain": true,
-						  "url": url,
-						  "method": "GET",
-						  "headers": {
-						    "content-type": "application/x-www-form-urlencoded"
-						  }
-						}
 
-						$.ajax(settings).done(function (response) {
-						  console.log(response);
-						  if(response.status==1)
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_eth_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							$("#set_bal_eth").text(response.result/1000000000000000000 + ' ETH');
-						  }
-						  else
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_eth_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							Materialize.toast('Error Occured! Try Again', 4000)
-						  }
-						});
-				},1000)
+
+
+
+		$('#get_acnt_bal').click(function(){
+
+			var settings = {
+				  "async": true,
+				  "crossDomain": true,
+				  "url": "http://localhost:3000/getBalance",
+				  "method": "POST",
+				  "headers": {
+				    "content-type": "application/x-www-form-urlencoded",
+				    "cache-control": "no-cache",
+				    "postman-token": "f6462616-5bd8-ff8f-8a98-f9973f5363ae"
+				  },
+				  "data": {
+				  			"toaccount":$("#get_bal").val().toString()
+
+				  }
 			}
-			else{
-				Materialize.toast('Enter Address!', 4000)
-			}
-			
-		});
+
+				$.ajax(settings).done(function (response) {
+				  
+				  var res_bal = response;
+				  $("#set_eth_bal").text(JSON.parse(res_bal).etherBalance);
+				  $("#set_tok_bal").text(JSON.parse(res_bal).tokenBalance);
+
+				});
+
+
+
+});
+
+
 
 
 
