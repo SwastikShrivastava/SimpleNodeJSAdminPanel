@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Panel</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	
+</head>
+<body class="">
+
+ <nav class="teal z-depth-5">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center"><i class="material-icons">build</i>SIP SUPER ADMIN</a>
+    </div>
+  </nav>
+
+	<div class="row container">
+		<br><br><br><br>
+		<br><br><br><br><br>
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <i class="material-icons prefix">account_circle</i>
+          <input id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">First Name</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <i class="material-icons prefix">lock</i>
+          <input id="icon_lock" type="password" class="validate">
+          <label for="icon_lock">Password</label>
+        </div>
+      </div>
+    </form>
+    <div class="col s12 center">
+    	<a class="waves-effect waves-light btn-large teal z-depth-5" id="submit_form">Login<i class="material-icons right">send</i></a>
+    </div>
+  </div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			Materialize.toast('Login to Continue!', 4000)
+		});
+
+
+		$("#submit_form").click(function(){
+			var sec_time = new Date().valueOf();
+			var d_sec = window.location.href.split("?").pop();
+			d_sec = atob(d_sec);
+			d_sec = d_sec.split("=").pop();
+			sec_time = sec_time-d_sec;
+			var settings = {
+				  "async": true,
+				  "crossDomain": true,
+				  "url": "http://localhost:3000/superLogin",
+				  "method": "POST",
+				  "headers": {
+				    "content-type": "application/x-www-form-urlencoded",
+				    "cache-control": "no-cache"
+				  },
+				  "data": {
+				    "username": $("#icon_prefix").val(),
+				    "password": $("#icon_lock").val(),
+				    "time": sec_time
+				  }
+				}
+
+				$.ajax(settings).done(function (response) {
+				  console.log(response);
+				  if(response=='login')
+				  {
+				  	window.location = "/login";
+				  }
+				  else if(response=='superPanel')
+				  {
+				  	window.location = "/superPanel";
+				  }
+				});
+		});
+	</script>
+</body>
+</html>

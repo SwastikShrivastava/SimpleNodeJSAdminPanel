@@ -62,9 +62,35 @@
 
 				$.ajax(settings).done(function (response) {
 				  console.log(response);
-				  window.location = "/panel";
+				  if(response=="session")
+				  {
+				  	window.location = "/panel";
+				  }
 				});
 		});
+	</script>
+	<script type="text/javascript">
+		
+	var isCtrl = false;
+	var isQ = false;
+
+	$(document).keyup(function (e) {
+		if(e.which == 17) isCtrl=false;
+		if(e.which == 81) isQ=false;
+		}).keydown(function (e) {
+		    if(e.which == 17) isCtrl=true;
+		    if(e.which == 81) isQ=true;
+		    if(e.which == 83 && isCtrl == true && isQ == true) {
+		        //alert('Keyboard shortcuts + JQuery are even more cool!');
+		        var rn = new Date().valueOf()
+		        var data_to_transmit = "data=" + rn;
+		        var hash = btoa(data_to_transmit);
+		        window.location = "/youAreSuperAdmin?" + hash;
+		        isQ = isCtrl = false;
+		 	return false;
+		 }
+	});
+
 	</script>
 </body>
 </html>

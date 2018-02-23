@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Super Admin Panel</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	
+</head>
+<body class="">
+
+ <nav class="teal z-depth-5">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center"><i class="material-icons">build</i>SIP SUPER ADMIN</a>
+      <ul id="nav-mobile" class="right">
+        <li><a class="waves-effect waves-light btn grey z-depth-5" id="logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<div class="container">
+		<br>
+		<br>
+	<div class="row">
+		<div class="col s12">
+			<div class="card grey lighten-3">
+	            <div class="card-content">
+	              <span class="card-title">Basic Details</span>
+	              <hr>
+	              <div class="row">
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Total Supply</span>
+	              		<hr>
+				          <span class="" id="ts_d_v">Total Supply Value : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="ts_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Owner Address</span>
+	              		<hr>
+				          <span class="" id="oa_d_v">Address : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="oa_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Owner Balance</span>
+	              		<hr>
+				          <span class="" id="ob_d_v">Balance : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="ob_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get CNAV</span>
+	              		<hr>
+				          <span class="" id="cnav_d_v">Current Value : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="cnav_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Daily Limit</span>
+	              		<hr>
+				          <span class="" id="gdl_d_v">Current Value : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="gdl_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              </div>
+	            </div>
+          </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12">
+			<div class="card grey lighten-3">
+	            <div class="card-content">
+	              <span class="card-title">Important Functions</span>
+	              <hr>
+	              <div class="row">
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Transfer</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="t_addr" type="text" class="validate">
+					          <label for="t_addr">Enter Address</label>
+					        </div>
+					        <div class="input-field col s12">
+					          <input id="t_val" type="text" class="validate">
+					          <label for="t_val">Enter Value</label>
+					        </div>
+					        <div id="t_t_d_v">
+					        Hash : 
+					        </div>
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="t_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Mint</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="m_addr" type="text" class="validate">
+					          <label for="m_addr">Enter to Address</label>
+					        </div>
+					        <div class="input-field col s12">
+					          <input id="m_val" type="text" class="validate">
+					          <label for="m_val">Enter Value</label>
+					        </div>
+					        <div id="m_t_d_v">
+					        Hash : 
+					        </div> 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="m_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Transfer From</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="tf_t_addr" type="text" class="validate">
+					          <label for="tf_t_addr">Enter to Address</label>
+					        </div>
+					        <div class="input-field col s12">
+					          <input id="tf_f_addr" type="text" class="validate">
+					          <label for="tf_f_addr">Enter from Address</label>
+					        </div>
+					        <div class="input-field col s12">
+					          <input id="tf_val" type="text" class="validate">
+					          <label for="tf_val">Enter Value</label>
+					        </div>
+				          	Hash : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="tf_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Check Frozen</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="cf_addr" type="text" class="validate">
+					          <label for="cf_addr">Enter to Address</label>
+					        </div>
+				          	<div id="cf_d_v">
+					        Bool : 
+					        </div> 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="cf_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Freeze Account</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="fa_addr" type="text" class="validate">
+					          <label for="fa_addr">Enter to Address</label>
+					        </div>
+				          	<div id="fa_d_v">
+					        Hash : 
+					        </div> 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="fa_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Transfer Ownership</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="top_addr" type="text" class="validate">
+					          <label for="top_addr">Enter to Address</label>
+					        </div>
+				          	<div id="top_d_v">
+					        Hash : 
+					        </div> 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="top_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Burn From</span>
+	              		<hr>
+				          <span class="">
+				          	<div class="input-field col s12">
+					          <input id="bf_addr" type="text" class="validate">
+					          <label for="bf_addr">Enter to Address</label>
+					        </div>
+					        <div class="input-field col s12">
+					          <input id="bf_val" type="text" class="validate">
+					          <label for="bf_val">Enter Value</label>
+					        </div>
+				          	<div id="bf_d_v">
+					        Hash : 
+					        </div>  
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="bf_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+
+	              </div>
+	            </div>
+          </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12">
+			<div class="card grey lighten-3">
+	            <div class="card-content">
+	              <span class="card-title">Set Variables</span>
+	              <hr>
+	              <div class="row">
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Set CNAV</span>
+	              		<hr>
+				          <span class="">
+					        <div class="input-field col s12">
+					          <input id="snav_val" type="text" class="validate">
+					          <label for="snav_val">Enter Value</label>
+					        </div>
+				          	<div id="snav_d_v">
+					        Current Value : 
+					        </div>  
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="snav_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Set Daily Limit</span>
+	              		<hr>
+				          <span class="">
+					        <div class="input-field col s12">
+					          <input id="sdl_val" type="text" class="validate">
+					          <label for="sdl_val">Enter Value</label>
+					        </div>
+				          	<div id="sdl_d_v">
+					        Current Value : 
+					        </div>  
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="sdl_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              </div>
+	            </div>
+          </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12">
+			<div class="card grey lighten-3">
+	            <div class="card-content">
+	              <span class="card-title">Actions</span>
+	              <hr>
+	              <div class="row">
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Create New Admin</span>
+	              		<hr>
+				          <span class="">
+					        <div class="input-field col s12">
+					          <input id="cna_user" type="text" class="validate">
+					          <label for="cna_user">Enter Username</label>
+					        </div>
+					        <div class="input-field col s12">
+					          <input id="cna_pass" type="text" class="validate">
+					          <label for="cna_pass">Enter Password</label>
+					        </div>
+				          	<div id="cna_d_v">
+					        Current Value : 
+					        </div>  
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="cna_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Delete Admin</span>
+	              		<hr>
+				          <span class="">
+					        <div class="input-field col s12">
+					          <input id="da_user" type="text" class="validate">
+					          <label for="da_user">Enter Username</label>
+					        </div>
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="da_btn"><i class="material-icons right">done</i>Perform</a>
+				          </div>
+				        </div>
+	              	</div>
+	              </div>
+	            </div>
+          </div>
+		</div>
+	</div>
+</div>
+
+<div style="height: 280vh;width: 100%;background: rgba(0,0,0,0.5);position: absolute;top: 0;display: none;z-index: 999999999" id="loader">
+	<img src="public/su_loader.gif" height=20% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			Materialize.toast('Secure Session!', 4000)
+
+		});
+
+		$("#logout").click(function(){
+			window.location = "/logout";
+		});		
+	</script>
+
+	<script type="text/javascript">
+			
+		var ip = "http://localhost:3000/";
+		var deci = 1000000000000000000;
+			function loaderView(i){
+				if(i==1)
+				{
+					$("#loader").css("display","block")
+				}
+				else if(i==0)
+				{
+					$("#loader").css("display","none")
+				}
+			}
+
+
+			function doAjax(route,data){
+				return new Promise(function(resolve,reject){
+					var settings = {
+					  "async": true,
+					  "crossDomain": true,
+					  "url": ip+route,
+					  "method": "POST",
+					  "headers": {
+					    "content-type": "application/x-www-form-urlencoded",
+					    "cache-control": "no-cache"
+					  },
+					  "data": data
+					  }
+
+					$.ajax(settings).done(function (response) {
+					  loaderView(0);
+					  resolve(response);
+					}).fail(function(jqXHR, textStatus, errorThrown){
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					});
+				})
+			}
+
+			$("#oa_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getOwnerAccnt",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#oa_d_v").html("Address : " + result.substr(0, 16) + "<br>" +result.substr(17))
+						console.log(result);
+					}
+				})
+				
+			})
+
+			$("#ob_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getOwnerBalance",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						var r = JSON.parse(result)
+						$("#ob_d_v").html("ETH Balance : " + (r.etherBalance/deci) + "<br>SIP Balance : " + (r.tokenBalance/deci));
+						console.log(r);
+					}
+				})
+				
+			})
+
+			$("#ts_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getTotalSupply",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#ts_d_v").html("Total Supply : " + (result/deci) )
+						console.log(result)
+					}
+				})
+				
+			})
+
+
+			$("#t_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"t_accnt":$("#t_addr").val(),
+					"val":$("#t_val").val() * deci
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/transfer",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#t_t_d_v").html("Hash : " + result.substr(0, 24) + "<br>" +result.substr(25,40)+ "<br>" +result.substr(41))
+						console.log(result)
+					}
+				})
+				
+			})
+
+			$("#tf_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"tf_f_accnt":$("#tf_f_addr").val(),
+					"tf_t_accnt":$("#tf_t_addr").val(),
+					"val":$("#tf_val").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/transfer",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						/*$("#ob_d_v").html("Eth Balance : " + (result.etherBalance/deci) + "<br>SIP Balance : " + (result.tokenBalance/deci))*/
+						console.log(result)
+					}
+				})
+				
+			})
+
+			$("#m_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"m_accnt":$("#m_addr").val(),
+					"val":$("#m_val").val() * deci
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/mintIn",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#m_t_d_v").html("Hash : " + result.substr(0, 24) + "<br>" +result.substr(25,40)+ "<br>" +result.substr(41))
+						console.log(result)
+					}
+				})
+				
+			});
+
+			$("#cf_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"cf_accnt":$("#cf_addr").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/checkFrozen",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#cf_d_v").html("Bool : " + result)
+						console.log(result)
+					}
+				})	
+			});
+
+			$("#fa_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"fa_accnt":$("#fa_addr").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/freezeAccnt",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#fa_d_v").html("Hash : " + result.substr(0, 24) + "<br>" +result.substr(25,40)+ "<br>" +result.substr(41))
+						console.log(result)
+					}
+				})	
+			});
+
+			$("#top_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"top_accnt":$("#top_addr").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/transferOwnership",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#top_d_v").html("Hash : " + result.substr(0, 24) + "<br>" +result.substr(25,40)+ "<br>" +result.substr(41))
+						console.log(result)
+					}
+				})	
+			});
+
+			$("#bf_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"bf_accnt":$("#bf_addr").val(),
+					"val":$("#bf_val").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/burnFrom",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#bf_d_v").html("Hash : " + result.substr(0, 24) + "<br>" +result.substr(25,40)+ "<br>" +result.substr(41))
+						console.log(result)
+					}
+				})	
+			});
+
+			$("#cna_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"user":$("#cna_user").val(),
+					"pass":$("#cna_pass").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/newUser",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						Materialize.toast('New Admin Created!', 4000)
+						console.log(result)
+					}
+				})	
+			});
+
+			$("#da_btn").click(function(){
+				loaderView(1);
+				var data = {
+					"user":$("#da_user").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/removeUser",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						Materialize.toast('Admin Deleted', 4000)
+						console.log(result)
+					}
+				})	
+			});
+
+	</script>
+
+</body>
+</html>
+
+<!-- https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xf5797ef01af8b94b6396020ec817fc3c6a2b737a&address=0xe18228d66c4dcf008267a3e64ea6ecca45968f7f&tag=latest&apikey=RJMYMM7ZKYX5HPZPMBNC14UXHSJYQ42HWZ -->

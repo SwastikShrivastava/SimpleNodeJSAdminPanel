@@ -1,0 +1,10 @@
+{
+	"su_admin" : {
+	"su_admin_username" : "swastik1",
+	"su_admin_password" : "okay1",
+	"time_to_login": 20000
+	},
+	"cookieAge" : 600000,
+	"b_chain_ip": "http://54.169.149.54:9326/",
+	"authkey": "ironmandiesininfinityWars"
+}

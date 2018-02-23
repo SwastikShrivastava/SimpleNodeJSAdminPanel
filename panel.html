@@ -4,7 +4,17 @@
 	<title>Admin Panel</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+	<style type="text/css">
+		table{
+			table-layout: fixed;
+			width: 100%;
+		}
+		th,td{
+			word-wrap: break-word;
+		}
+	</style>
 </head>
 <body class="">
 
@@ -20,170 +30,412 @@
 <div class="container">
 		<br>
 		<br>
-      <div class="row">
-        <div class="input-field col s4">
-          <i class="material-icons prefix">monetization_on</i>
-          <input id="icon_prefix" type="text" class="validate">
-          <label for="icon_prefix">Enter Address</label>
-        </div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn black z-depth-5" id="get_sip_bal">Get SIP Balance<i class="material-icons right">send</i></a>
-        </div>
-        <div class="col s4">
-        	<div class="chip" id="set_bal">
-			    Value will be displayed here.
-			</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s4">
-          <i class="material-icons prefix">monetization_on</i>
-          <input id="icon_eth" type="text" class="validate">
-          <label for="icon_eth">Enter Address</label>
-        </div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn black z-depth-5" id="get_eth_bal">Get ETH Balance<i class="material-icons right">send</i></a>
-        </div>
-        <div class="col s4">
-        	<div class="chip" id="set_bal_eth">
-			    Value will be displayed here.
-			</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s4">
-          <i class="material-icons prefix">person</i>
-          <input id="account_frozen" type="text" class="validate">
-          <label for="account_frozen">Enter Address</label>
-        </div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn black z-depth-5" id="acct_frzn">Is Account Frozen<i class="material-icons right">send</i></a>
-        </div>
-        <div class="col s4">
-        	<div class="chip">
-			    True/False will be displayed here.
-			</div>
-        </div>
-      </div>
-      <div class="row">
-      	<div class="col s12 center" id="loader" style="display: none">
-      		<img src="public/loader.gif" height="50px" width="auto" >
-      	</div>
-      </div>
+	<div class="row">
+		<div class="col s12">
+			<div class="card grey lighten-3">
+	            <div class="card-content">
+	              <span class="card-title">Basic Details</span>
+	              <hr>
+	              <div class="row">
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Total Supply</span>
+	              		<hr>
+				          <span class="" id="ts_d_v">Total Supply Value : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="ts_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Owner Address</span>
+	              		<hr>
+				          <span class="" id="oa_d_v">Address : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="oa_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get Owner Balance</span>
+	              		<hr>
+				          <span class="" id="ob_d_v">Balance : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="ob_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              	<div class="col s12 m6 l4">
+	              		<div class="card-panel hoverable">
+	              		<span class="card-title">Get CNAV</span>
+	              		<hr>
+				          <span class="" id="cnav_d_v">Current Value : 
+				          </span>
+				          <div class="card-action">
+				          	<a class="waves-effect waves-light btn" id="cnav_btn"><i class="material-icons right">send</i>Check</a>
+				          </div>
+				          
+				        </div>
+	              	</div>
+	              </div>
+	            </div>
+          </div>
+		</div>
+	</div>
 </div>
+
+<div class="row">
+		<div class="col s12">
+			<div class="card grey lighten-3">
+	            <div class="card-content">
+	              <span class="card-title">Transaction Records</span>
+	              <hr>
+	              <div class="row">
+	              	<div class="col s12 m12 l12">
+	              		<a class="waves-effect waves-light btn" id="grtr_btn"><i class="material-icons right">send</i>GET RECENT TRANSACTION REQUEST</a>
+	              	</div>
+	              	<div class="col s12 m12 l12">
+	              		<table id="transactionReq">
+					        <thead>
+					          <tr>
+					              <th>TID</th>
+					              <th>Username</th>
+					              <th>Amount</th>
+					              <th>TypeCode</th>
+					              <th>CNAV</th>
+					              <th>Date of Request</th>
+					              <th>Destination Address</th>
+					              <th>Self Address</th>
+					              <th>Private Key</th>
+					              <th>Complete Transaction</th>
+					          </tr>
+					        </thead>
+					        <tbody id="transactionReqBody">
+					          <tr>
+					            <td>roh1519282069613</td>
+					            <td>rohan1</td>
+					            <td>10</td>
+					            <td>1</td>
+					            <td>2.5</td>
+					            <td>February 22nd 2018, 12:17:49 pm</td>
+					            <td>sadadfdqqdasfadsfasdfqsadadfdqqdasfadsfasdfq</td>
+					            <td>sfaddasdfadsfsdaffsadadfdqqdasfadsfasdfq</td>
+					            <td>adadfadsfadfafdsf</td>
+					            <td><a class="waves-effect waves-light btn comp-btn-action"><i class="material-icons right">done</i></a></td>
+					          </tr>
+					          <tr>
+					            <td>roh1519282069613</td>
+					            <td>rohan1</td>
+					            <td>10</td>
+					            <td>4</td>
+					            <td>2.5</td>
+					            <td>February 22nd 2018, 12:17:49 pm</td>
+					            <td>sadadfdqqdasfadsfasdfqsadadfdqqdasfadsfasdfq</td>
+					            <td>sfaddasdfadsfsdaffsadadfdqqdasfadsfasdfq</td>
+					            <td>adadfadsfadfafdsf</td>
+					            <td><a class="waves-effect waves-light btn comp-btn-action"><i class="material-icons right">done</i></a></td>
+					          </tr>
+					        </tbody>
+					      </table>
+	              	</div>
+	              </div>
+	            </div>
+          </div>
+		</div>
+	</div>
+
+	<div id="modal1" class="modal">
+	    <div class="modal-content">
+	      <h4>Transaction Type - 1</h4>
+	      <hr>
+	      <p id="hash_id_1">A bunch of text</p>
+	      <a class="waves-effect waves-light btn" id="performTx1"><i class="material-icons right">done</i>Perform</a>
+	      <br>
+	      <div id="" style="display: none">
+				<img src="public/su_loader.gif" height=34% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+		  </div>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="store_hash_1">Submit</a>
+	    </div>
+  	</div>
+
+  	<div id="modal2" class="modal">
+	    <div class="modal-content">
+	      <h4>Transaction Type - 2</h4>
+	      <hr>
+	      <p id="hash_id_2">A bunch of text</p>
+	      <a class="waves-effect waves-light btn" id="performTx2"><i class="material-icons right">done</i>Perform</a>
+	      <br>
+	      <div id="" style="display: none">
+				<img src="public/su_loader.gif" height=34% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+		  </div>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="store_hash_2">Submit</a>
+	    </div>
+  	</div>
+  	<div id="modal3" class="modal">
+	    <div class="modal-content">
+	      <h4>Transaction Type - 3</h4>
+	      <hr>
+	      <p id="hash_id_3">A bunch of text</p>
+	      <a class="waves-effect waves-light btn" id="performTx3"><i class="material-icons right">done</i>Perform</a>
+	      <br>
+	      <div id="" style="display: none">
+				<img src="public/su_loader.gif" height=34% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+		  </div>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="store_hash_3">Submit</a>
+	    </div>
+  	</div>
+  	<div id="modal4" class="modal">
+	    <div class="modal-content">
+	      <h4>Transaction Type - 4</h4>
+	      <hr>
+	      <p id="hash_id_4">A bunch of text</p>
+	      <a class="waves-effect waves-light btn" id="performTx4"><i class="material-icons right">done</i>Perform</a>
+	      <br>
+	      <div id="" style="display: none">
+				<img src="public/su_loader.gif" height=34% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+		  </div>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="store_hash_4">Submit</a>
+	    </div>
+  	</div>
+
+<div style="height: 280vh;width: 100%;background: rgba(0,0,0,0.5);position: absolute;top: 0;display: none;z-index: 999999999" id="loader">
+	<img src="public/su_loader.gif" height=20% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+</div>
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			Materialize.toast('Login Successful!', 4000)
+			Materialize.toast('Secure Session!', 4000)
+			 $('#transactionReq').DataTable();
+			 $('.modal').modal({
+			 	dismissible: false
+			 });
 		});
 
 		$("#logout").click(function(){
-			window.location = "/login";
-		});
-
-		var c_addr = "0xf5797ef01af8b94b6396020ec817fc3c6a2b737a";
-		var apikey = "RJMYMM7ZKYX5HPZPMBNC14UXHSJYQ42HWZ";
-
-
-		$("#get_sip_bal").click(function(){
-			if($("#get_sip_bal").val()!=undefined)
-			{
-				$("#loader").css("display","block");
-				$(this).addClass("disabled");
-				$("#acct_frzn").addClass("disabled");
-				setTimeout(function(){
-					var url= "https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress="+c_addr+"&address="+$("#icon_prefix").val().toString()+"&tag=latest&apikey="+apikey
-						var settings = {
-						  "async": true,
-						  "crossDomain": true,
-						  "url": url,
-						  "method": "GET",
-						  "headers": {
-						    "content-type": "application/x-www-form-urlencoded"
-						  }
-						}
-
-						$.ajax(settings).done(function (response) {
-						  console.log(response);
-						  if(response.status==1)
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_sip_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							$("#set_bal").text(response.result/1000000000000000000 + ' SIP');
-						  }
-						  else
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_sip_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							Materialize.toast('Error Occured! Try Again', 4000)
-						  }
-						});
-				},1000)
-			}
-			else{
-				Materialize.toast('Enter Address!', 4000)
-			}
-			
-		});
-
-		$("#get_eth_bal").click(function(){
-			if($("#get_eth_bal").val()!=undefined)
-			{
-				$("#loader").css("display","block");
-				$(this).addClass("disabled");
-				$("#acct_frzn").addClass("disabled");
-				setTimeout(function(){
-					var url= "https://api.etherscan.io/api?module=account&action=balance&address="+$("#icon_eth").val().toString()+"&tag=latest&apikey="+apikey;
-						var settings = {
-						  "async": true,
-						  "crossDomain": true,
-						  "url": url,
-						  "method": "GET",
-						  "headers": {
-						    "content-type": "application/x-www-form-urlencoded"
-						  }
-						}
-
-						$.ajax(settings).done(function (response) {
-						  console.log(response);
-						  if(response.status==1)
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_eth_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							$("#set_bal_eth").text(response.result/1000000000000000000 + ' ETH');
-						  }
-						  else
-						  {
-						  	$("#loader").css("display","none");
-							$("#get_eth_bal").removeClass("disabled");
-							$("#acct_frzn").removeClass("disabled");
-							Materialize.toast('Error Occured! Try Again', 4000)
-						  }
-						});
-				},1000)
-			}
-			else{
-				Materialize.toast('Enter Address!', 4000)
-			}
-			
-		});
-
-		$("#acct_frzn").click(function(){
-			if($("#acct_frzn").val()!='')
-			{
-				$("#loader").css("display","block");
-				$(this).addClass("disabled");
-				$("#get_sip_bal").addClass("disabled");
-			}
-			else{
-				Materialize.toast('Enter Address!', 4000)
-			}
-		});
+			window.location = "/logout";
+		});		
 	</script>
+
+	<script type="text/javascript">
+			
+		var ip = "http://localhost:3000/";
+		var deci = 1000000000000000000;
+			function loaderView(i){
+				if(i==1)
+				{
+					$("#loader").css("display","block")
+				}
+				else if(i==0)
+				{
+					$("#loader").css("display","none")
+				}
+			}
+
+
+			function doAjax(route,data){
+				return new Promise(function(resolve,reject){
+					var settings = {
+					  "async": true,
+					  "crossDomain": true,
+					  "url": ip+route,
+					  "method": "POST",
+					  "headers": {
+					    "content-type": "application/x-www-form-urlencoded",
+					    "cache-control": "no-cache"
+					  },
+					  "data": data
+					  }
+
+					$.ajax(settings).done(function (response) {
+					  loaderView(0);
+					  resolve(response);
+					}).fail(function(jqXHR, textStatus, errorThrown){
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					});
+				})
+			}
+
+			$("#oa_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getOwnerAccnt",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#oa_d_v").html("Address : " + result.substr(0, 16) + "<br>" +result.substr(17))
+						console.log(result);
+					}
+				})
+				
+			})
+
+			$("#ob_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getOwnerBalance",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						var r = JSON.parse(result)
+						$("#ob_d_v").html("ETH Balance : " + (r.etherBalance/deci) + "<br>SIP Balance : " + (r.tokenBalance/deci));
+						console.log(r);
+					}
+				})
+				
+			})
+
+			$("#ts_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getTotalSupply",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						$("#ts_d_v").html("Total Supply : " + (result/deci) )
+						console.log(result)
+					}
+				})
+				
+			})
+
+			$("#grtr_btn").click(function(){
+				loaderView(1);
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getRecentTransactionReq",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						console.log(result)
+						for(var i =0;i<result.length;i++){
+							var str = "<tr>" + "<td>"+result[i].TID+"</td>" + "<td>"+result[i].username+"</td>" + "<td>"+result[i].amount+"</td>"+"<td>"+result[i].typeCode+"</td>"+"<td>"+result[i].CNAV+"</td>"+"<td>"+result[i].dateOfRequest+"</td>"+"<td>"+result[i].destinationAddress+"</td>"+"<td>"+result[i].selfAddr+"</td>"+"<td>"+result[i].pkey+"</td>"+"</tr>"
+							
+							$("#transactionReqBody").append(str);
+						}
+					}
+				})
+				
+			});
+
+
+			$(".comp-btn-action").click(function(){
+				
+				/*var value_h = $(this).parent().siblings().find("input").val();*/
+				var type_tr =  localStorage.type_tr = $($(this).parent().siblings()[3]).text();
+				var user = localStorage.user = $($(this).parent().siblings()[1]).text();
+				var amt = localStorage.amt = $($(this).parent().siblings()[2]).text();
+				var cnav = localStorage.cnav = $($(this).parent().siblings()[4]).text();
+				var selfAddr = localStorage.selfAddr = $($(this).parent().siblings()[7]).text();
+				var pKey= localStorage.pKey = $($(this).parent().siblings()[8]).text();
+				if(type_tr ==1)
+				{
+					$("#hash_id_1").html('User : ' +user+ ' wants to convert '+amt+ ' dollars to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$('#modal1').modal('open');
+				}
+				else if(type_tr ==2){
+					$("#hash_id_2").html('User : ' +user+ ' wants to convert '+amt+ ' SIP to equivalent ETH at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$('#modal2').modal('open');
+				}
+				else if(type_tr ==3){
+					$("#hash_id_3").html('User : ' +user+ ' wants to convert '+amt+ ' ETH to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$('#modal3').modal('open');
+				}
+				else if(type_tr ==4){
+					var destAddr = localStorage.destAddr = $($(this).parent().siblings()[6]).text();
+					$("#hash_id_4").html('User : ' +user+ ' wants to send '+amt+ ' ETH to this ETH address: '+destAddr+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$('#modal4').modal('open');
+				}
+				else{
+					console.log(type_tr)
+				}
+
+				/*localStorage.currentHash = value_h;
+				if(value_h!==''){
+					$("#hash_id").html('Hash Submitted : ' + value_h + '<br><br>See this link on Etherscan : <a href="https://etherscan.io/tx/'+ value_h +'" target="_blank"> https://etherscan.io/tx/'+ value_h +'</a>')
+					$('#modal1').modal('open');
+					
+
+					console.log($(this).parent().siblings().find("input").val())
+				}*/	
+			});
+			
+			$("#performTx1").click(function(){
+				$(this).addClass("disabled")
+				$($(this).siblings()[4]).css("display","block")
+				
+			});
+
+			$("#performTx2").click(function(){
+				$(this).addClass("disabled")
+				$($(this).siblings()[4]).css("display","block")
+				
+			});
+
+			$("#performTx3").click(function(){
+				$(this).addClass("disabled")
+				$($(this).siblings()[4]).css("display","block")
+				
+			});
+
+			$("#performTx4").click(function(){
+				$(this).addClass("disabled")
+				$($(this).siblings()[4]).css("display","block")
+				
+			});
+
+	</script>
+
 </body>
 </html>
 
