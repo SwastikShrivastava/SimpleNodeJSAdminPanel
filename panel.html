@@ -99,8 +99,11 @@
 	              <span class="card-title">Transaction Records</span>
 	              <hr>
 	              <div class="row">
-	              	<div class="col s12 m12 l12">
+	              	<div class="col s12 m16 l6">
 	              		<a class="waves-effect waves-light btn" id="grtr_btn"><i class="material-icons right">send</i>GET RECENT TRANSACTION REQUEST</a>
+	              	</div>
+	              	<div class="col s12 m16 l6">
+	              		<a class="waves-effect waves-light btn" id="ut_btn"><i class="material-icons right">send</i>UPDATE TRANSACTION</a>
 	              	</div>
 	              	<div class="col s12 m12 l12">
 	              		<table id="transactionReq">
@@ -214,6 +217,26 @@
 	    </div>
   	</div>
 
+  	<div id="modal5" class="modal">
+	    <div class="modal-content">
+	      <h4>Update Transaction</h4>
+	      <hr>
+	      <input id="t_id" type="text" class="validate">
+		  <label for="t_id">Enter TID</label>
+		  <input id="t_g_hash" type="text" class="validate">
+		  <label for="t_g_hash">Enter Hash</label>
+		  <br>
+	      <a class="waves-effect waves-light btn" id="updateTx"><i class="material-icons right">done</i>Update</a>
+	      <br>
+	      <div id="uTL" style="display: none">
+				<img src="public/su_loader.gif" height=34% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
+		  </div>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+	    </div>
+  	</div>
+
 <div style="height: 280vh;width: 100%;background: rgba(0,0,0,0.5);position: absolute;top: 0;display: none;z-index: 999999999" id="loader">
 	<img src="public/su_loader.gif" height=20% width="auto" style="border-radius: 50%;transform: translate(-50%,-50%);position: absolute;top:50%;left: 50%;">
 </div>
@@ -293,9 +316,9 @@
 						$("#oa_d_v").html("Address : " + result.substr(0, 16) + "<br>" +result.substr(17))
 						console.log(result);
 					}
-				})
+				});
 				
-			})
+			});
 
 			$("#ob_btn").click(function(){
 				loaderView(1);
@@ -316,9 +339,9 @@
 						$("#ob_d_v").html("ETH Balance : " + (r.etherBalance/deci) + "<br>SIP Balance : " + (r.tokenBalance/deci));
 						console.log(r);
 					}
-				})
+				});
 				
-			})
+			});
 
 			$("#ts_btn").click(function(){
 				loaderView(1);
@@ -359,7 +382,7 @@
 					{
 						console.log(result)
 						for(var i =0;i<result.length;i++){
-							var str = "<tr>" + "<td>"+result[i].TID+"</td>" + "<td>"+result[i].username+"</td>" + "<td>"+result[i].amount+"</td>"+"<td>"+result[i].typeCode+"</td>"+"<td>"+result[i].CNAV+"</td>"+"<td>"+result[i].dateOfRequest+"</td>"+"<td>"+result[i].destinationAddress+"</td>"+"<td>"+result[i].selfAddr+"</td>"+"<td>"+result[i].pkey+"</td>"+"</tr>"
+							var str = "<tr>" + "<td>"+result[i].TID+"</td>" + "<td>"+result[i].username+"</td>" + "<td>"+result[i].amount+"</td>"+"<td>"+result[i].typeCode+"</td>"+"<td>"+result[i].CNAV+"</td>"+"<td>"+result[i].dateOfRequest+"</td>"+"<td>"+result[i].destinationAddress+"</td>"+"<td>"+result[i].sourceAddress+"</td>"+"<td>"+result[i].pkey+"</td>"+"</tr>"
 							
 							$("#transactionReqBody").append(str);
 						}
@@ -376,24 +399,24 @@
 				var user = localStorage.user = $($(this).parent().siblings()[1]).text();
 				var amt = localStorage.amt = $($(this).parent().siblings()[2]).text();
 				var cnav = localStorage.cnav = $($(this).parent().siblings()[4]).text();
-				var selfAddr = localStorage.selfAddr = $($(this).parent().siblings()[7]).text();
+				var sourceAddress = localStorage.sourceAddress = $($(this).parent().siblings()[7]).text();
 				var pKey= localStorage.pKey = $($(this).parent().siblings()[8]).text();
 				if(type_tr ==1)
 				{
-					$("#hash_id_1").html('User : ' +user+ ' wants to convert '+amt+ ' dollars to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$("#hash_id_1").html('User : ' +user+ ' wants to convert '+amt+ ' dollars to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
 					$('#modal1').modal('open');
 				}
 				else if(type_tr ==2){
-					$("#hash_id_2").html('User : ' +user+ ' wants to convert '+amt+ ' SIP to equivalent ETH at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$("#hash_id_2").html('User : ' +user+ ' wants to convert '+amt+ ' SIP to equivalent ETH at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
 					$('#modal2').modal('open');
 				}
 				else if(type_tr ==3){
-					$("#hash_id_3").html('User : ' +user+ ' wants to convert '+amt+ ' ETH to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$("#hash_id_3").html('User : ' +user+ ' wants to convert '+amt+ ' ETH to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
 					$('#modal3').modal('open');
 				}
 				else if(type_tr ==4){
 					var destAddr = localStorage.destAddr = $($(this).parent().siblings()[6]).text();
-					$("#hash_id_4").html('User : ' +user+ ' wants to send '+amt+ ' ETH to this ETH address: '+destAddr+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ selfAddr +'" target="_blank"> https://etherscan.io/tx/'+ selfAddr +'</a>')
+					$("#hash_id_4").html('User : ' +user+ ' wants to send '+amt+ ' ETH to this ETH address: '+destAddr+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
 					$('#modal4').modal('open');
 				}
 				else{
@@ -410,30 +433,264 @@
 				}*/	
 			});
 			
-			$("#performTx1").click(function(){
-				$(this).addClass("disabled")
-				$($(this).siblings()[4]).css("display","block")
-				
-			});
+			function doTransactionAjax(route,data){
+				return new Promise(function(resolve,reject){
+					var settings = {
+					  "async": true,
+					  "crossDomain": true,
+					  "url": ip+route,
+					  "method": "POST",
+					  "headers": {
+					    "content-type": "application/x-www-form-urlencoded",
+					    "cache-control": "no-cache"
+					  },
+					  "data": data
+					  }
 
-			$("#performTx2").click(function(){
-				$(this).addClass("disabled")
-				$($(this).siblings()[4]).css("display","block")
+					$.ajax(settings).done(function (response) {
+					  resolve(response);
+					}).fail(function(jqXHR, textStatus, errorThrown){
+						reject(errorThrown);
+						//console.log(errorThrown)
+					});
+				})
+			}
+
+
+			$("#performTx1").click(function(){
+				$(this).addClass("disabled");
+				$($(this).siblings()[4]).css("display","block");
+				var this_obj = this;
+
+				var data = {
+					"user": localStorage.user,
+					"amt": localStorage.amt,
+					"addr": localStorage.sourceAddress,
+					"cnav": localStorage.cnav
+				};
+
+
+
+				doTransactionAjax("a/performTxDollarToSIP",data)
+				.then(function(result){
+					console.log("Received : ",result)
+					if(result==0)
+					{
+						$($(this_obj).siblings()[4]).css("display","none");
+						$(this_obj).removeClass("disabled");
+						$("#hash_id_1").append("<br><b>Error! Check Etherscan and then try again</b>");
+					}
+					else
+					{
+						if(result.transactionStatus!=undefined)
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_1").append("<br><b>Error : "+result+" </b>");
+						}
+						else
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_1").append('<br><b>Successful : '+'<a href="https://etherscan.io/tx/'+ result.transactionHash +'" target="_blank"> https://etherscan.io/tx/'+ result.transactionHash +'</a>'+' </b>');
+						}
+					}
+				}).catch(function(err){
+					$($(this_obj).siblings()[4]).css("display","none");
+					$(this_obj).removeClass("disabled");
+					$("#hash_id_1").append("<br><b>Error! Check Etherscan and then try again<br>"+err+"</b>");
+				});
+
+		});
+
+
+
+				/*new Promise(function(resolve,reject){
+					resolve(doTransactionAjax("a/performTxDollarToSIP",data))
+				}).then(function(result){
+					console.log("Received : ",result)
+					if(result==0)
+					{
+						$($(this_obj).siblings()[4]).css("display","none");
+						$(this_obj).removeClass("disabled");
+						$("#hash_id_1").append("<br><b>Error! Check Etherscan and then try again</b>");
+					}
+					else
+					{
+						if(result.transactionStatus!=undefined)
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_1").append("<br><b>Error : "+result+" </b>");
+						}
+						else
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_1").append('<br><b>Successful : '+'<a href="https://etherscan.io/tx/'+ result.transactionHash +'" target="_blank"> https://etherscan.io/tx/'+ result.transactionHash +'</a>'+' </b>');
+						}
+					}
+				}).catch(function(err){
+					$($(this_obj).siblings()[4]).css("display","none");
+					$(this_obj).removeClass("disabled");
+					$("#hash_id_1").append("<br><b>Error! Check Etherscan and then try again</b>");
+				});*/
 				
-			});
+			$("#performTx2").click(function(){
+				$(this).addClass("disabled");
+				$($(this).siblings()[4]).css("display","block");
+				var this_obj = this;
+
+				var data = {
+					"pKey": localStorage.pKey,
+					"amt": localStorage.amt,
+					"addr": localStorage.sourceAddress,
+					"cnav": localStorage.cnav
+				};
+
+
+
+				doTransactionAjax("a/performTxSIPToETH",data)
+				.then(function(result){
+					console.log("Received : ",result)
+					if(result==0)
+					{
+						$($(this_obj).siblings()[4]).css("display","none");
+						$(this_obj).removeClass("disabled");
+						$("#hash_id_2").append("<br><b>Error! Check Etherscan and then try again</b>");
+					}
+					else
+					{
+						if(result.firstTx.transactionStatus!=undefined)
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_2").append("<br><b>Error : "+result+" </b>");
+						}
+						else
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_2").append('<br><b>Successful : '+'<a href="https://etherscan.io/tx/'+ result.transactionHash +'" target="_blank"> https://etherscan.io/tx/'+ result.transactionHash +'</a>'+' </b>');
+						}
+					}
+				}).catch(function(err){
+					$($(this_obj).siblings()[4]).css("display","none");
+					$(this_obj).removeClass("disabled");
+					$("#hash_id_2").append("<br><b>Error! Check Etherscan and then try again<br>"+err+"</b>");
+				});
+
+		});
+
 
 			$("#performTx3").click(function(){
-				$(this).addClass("disabled")
-				$($(this).siblings()[4]).css("display","block")
-				
-			});
+				$(this).addClass("disabled");
+				$($(this).siblings()[4]).css("display","block");
+				var this_obj = this;
+
+				var data = {
+					"pKey": localStorage.pKey,
+					"amt": localStorage.amt,
+					"addr": localStorage.sourceAddress,
+					"cnav": localStorage.cnav
+				};
+
+
+
+				doTransactionAjax("a/performTxETHToSIP",data)
+				.then(function(result){
+					console.log("Received : ",result)
+					if(result==0)
+					{
+						$($(this_obj).siblings()[4]).css("display","none");
+						$(this_obj).removeClass("disabled");
+						$("#hash_id_3").append("<br><b>Error! Check Etherscan and then try again</b>");
+					}
+					else
+					{
+						if(result.firstTx.transactionStatus!=undefined)
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_3").append("<br><b>Error : "+result+" </b>");
+						}
+						else
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_3").append('<br><b>Successful : '+'<a href="https://etherscan.io/tx/'+ result.transactionHash +'" target="_blank"> https://etherscan.io/tx/'+ result.transactionHash +'</a>'+' </b>');
+						}
+					}
+				}).catch(function(err){
+					$($(this_obj).siblings()[4]).css("display","none");
+					$(this_obj).removeClass("disabled");
+					$("#hash_id_3").append("<br><b>Error! Check Etherscan and then try again<br>"+err+"</b>");
+				});
+
+		});
+
+
 
 			$("#performTx4").click(function(){
-				$(this).addClass("disabled")
-				$($(this).siblings()[4]).css("display","block")
-				
-			});
+				$(this).addClass("disabled");
+				$($(this).siblings()[4]).css("display","block");
+				var this_obj = this;
 
+				var data = {
+					"pKey": localStorage.pKey,
+					"amt": localStorage.amt,
+					"addr": localStorage.sourceAddress,
+					"d_addr": localStorage.destAddr
+				};
+
+
+
+				doTransactionAjax("a/performTxETHToETH",data)
+				.then(function(result){
+					console.log("Received : ",result)
+					if(result==0)
+					{
+						$($(this_obj).siblings()[4]).css("display","none");
+						$(this_obj).removeClass("disabled");
+						$("#hash_id_4").append("<br><b>Error! Check Etherscan and then try again</b>");
+					}
+					else
+					{
+						if(result.firstTx.transactionStatus!=undefined)
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_4").append("<br><b>Error : "+result+" </b>");
+						}
+						else
+						{
+							$($(this_obj).siblings()[4]).css("display","none");
+							$(this_obj).removeClass("disabled");
+							$("#hash_id_4").append('<br><b>Successful : '+'<a href="https://etherscan.io/tx/'+ result.transactionHash +'" target="_blank"> https://etherscan.io/tx/'+ result.transactionHash +'</a>'+' </b>');
+						}
+					}
+				}).catch(function(err){
+					$($(this_obj).siblings()[4]).css("display","none");
+					$(this_obj).removeClass("disabled");
+					$("#hash_id_4").append("<br><b>Error! Check Etherscan and then try again<br>"+err+"</b>");
+				});
+
+		});
+
+
+			$("#ut_btn").click(function(){
+				$('#modal5').modal('open');
+				$('#t_id').val('');
+				$('#t_g_hash').val('');
+			})
+
+			$("#updateTx").click(function(){
+				var tid = $("#t_id").val();
+				var hash = $("#t_g_hash").val();
+				if(tid!='' && hash !=''){
+					$("#uTL").css("none","block")
+				}
+			})
 	</script>
 
 </body>

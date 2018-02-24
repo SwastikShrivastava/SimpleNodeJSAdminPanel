@@ -351,6 +351,15 @@ app.post('/su/getOwnerAccnt',auth_su_api,function(req,res){
 
 });
 
+
+app.post('/su/getRecentTransactionReq',auth_su_api,function(req,res){
+
+
+});
+
+
+
+
 app.post('/su/getTotalSupply',auth_su_api,function(req,res){
   
     var options = { method: 'POST',
@@ -392,6 +401,121 @@ app.post('/su/removeUser',auth_su_api,function(req,res){
       res.send("1")
     });
   });
+
+});
+
+
+app.post('/a/performTxDollarToSIP',auth,function(req,res){
+
+  console.log("Dollar to sip request:")
+  var options = { method: 'POST',
+                      url: config.b_chain_ip +'dollarToSip',
+                      headers: 
+                       { 'cache-control': 'no-cache',
+                         'content-type': 'application/x-www-form-urlencoded' },
+                      form: { amt: req.body.amt, 
+                              addr: req.body.addr,
+                              user: req.body.user,
+                              cnav:req.body.cnav
+                            } 
+
+                    };
+
+                    request(options, function (error, response, body) {
+                      if (error)
+                      {
+                        console.log("Sending Error!")
+                        res.send("0")
+                      }
+                      else{
+                        console.log("Sending Success!")
+                        res.send(body)
+                      }
+                    });
+
+});
+
+
+app.post('/a/performTxSIPToETH',auth,function(req,res){
+
+  var options = { method: 'POST',
+                      url: config.b_chain_ip +'dollarToSip',
+                      headers: 
+                       { 'cache-control': 'no-cache',
+                         'content-type': 'application/x-www-form-urlencoded' },
+                       form: { amt: req.body.amt, 
+                              addr: req.body.addr,
+                              pKey: req.body.pKey,
+                              cnav:req.body.cnav
+                            } 
+
+                    };
+
+                    request(options, function (error, response, body) {
+                      if (error)
+                      {
+                        res.send("0")
+                      }
+                      else{
+                        res.send(body)
+                      }
+                    });
+
+});
+
+
+app.post('/a/performTxETHToSIP',auth,function(req,res){
+
+  var options = { method: 'POST',
+                      url: config.b_chain_ip +'dollarToSip',
+                      headers: 
+                       { 'cache-control': 'no-cache',
+                         'content-type': 'application/x-www-form-urlencoded' },
+                      form: { amt: req.body.amt, 
+                              addr: req.body.addr,
+                              pKey: req.body.pKey,
+                              cnav:req.body.cnav
+                            } 
+
+                    };
+
+                    request(options, function (error, response, body) {
+                      if (error)
+                      {
+                        res.send("0")
+                      }
+                      else{
+                        res.send(body)
+                      }
+                    });
+
+});
+
+
+app.post('/a/performTxETHToETH',auth,function(req,res){
+
+  var options = { method: 'POST',
+                      url: config.b_chain_ip +'dollarToSip',
+                      headers: 
+                       { 'cache-control': 'no-cache',
+                         'content-type': 'application/x-www-form-urlencoded' },
+                      form: { amt: req.body.amt, 
+                              addr: req.body.addr,
+                              pKey: req.body.pKey,
+                              d_addr:req.body.d_addr
+                            } 
+
+                    };
+
+                    request(options, function (error, response, body) {
+                      if (error)
+                      {
+                        res.send("0")
+                      }
+                      else{
+                        res.send(body)
+                      }
+                    });
 
 });
 
