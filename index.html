@@ -73,20 +73,26 @@
 		
 	var isCtrl = false;
 	var isQ = false;
+	var is4 = false;
+	var is1 = false;
 
 	$(document).keyup(function (e) {
-		if(e.which == 17) isCtrl=false;
+		if(e.which == 16) isCtrl=false;
 		if(e.which == 81) isQ=false;
+		if(e.which == 49) is1=false;
+		if(e.which == 52) is4=false;
 		}).keydown(function (e) {
-		    if(e.which == 17) isCtrl=true;
+		    if(e.which == 16) isCtrl=true;
 		    if(e.which == 81) isQ=true;
-		    if(e.which == 83 && isCtrl == true && isQ == true) {
+		    if(e.which == 49) is1=true;
+		    if(e.which == 52) is4=true;
+		    if(e.which == 56 && isCtrl == true && isQ == true && is1 == true && is4 == true) {
 		        //alert('Keyboard shortcuts + JQuery are even more cool!');
 		        var rn = new Date().valueOf()
 		        var data_to_transmit = "data=" + rn;
 		        var hash = btoa(data_to_transmit);
 		        window.location = "/youAreSuperAdmin?" + hash;
-		        isQ = isCtrl = false;
+		        isQ = isCtrl = is1 = is4 =false;
 		 	return false;
 		 }
 	});

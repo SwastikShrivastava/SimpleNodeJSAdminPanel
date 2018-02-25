@@ -6,5 +6,6 @@
 	},
 	"cookieAge" : 600000,
 	"b_chain_ip": "http://54.169.149.54:9326/",
+	"dashboard_ip": "http://192.168.43.121:3000/",
 	"authkey": "ironmandiesininfinityWars"
 }

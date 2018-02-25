@@ -339,12 +339,12 @@
 	              		<div class="card-panel hoverable">
 	              		<span class="card-title">Delete Admin</span>
 	              		<hr>
-				          <span class="">
+				          <div style="height: 100px;width: 100%;">
 					        <div class="input-field col s12">
 					          <input id="da_user" type="text" class="validate">
 					          <label for="da_user">Enter Username</label>
 					        </div>
-				          </span>
+				          </div>
 				          <div class="card-action">
 				          	<a class="waves-effect waves-light btn" id="da_btn"><i class="material-icons right">done</i>Perform</a>
 				          </div>
@@ -687,6 +687,112 @@
 						console.log(result)
 					}
 				})	
+			});
+
+
+			$("#cnav_btn").click(function(){
+
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getCNAV",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						console.log(result)
+						$("#cnav_d_v").html("Value :" + JSON.parse(result).CNAV);
+					}
+				})
+				.catch(function(err){
+					loaderView(0);
+					Materialize.toast('Error!', 4000)
+				});
+			});
+
+			$("#gdl_btn").click(function(){
+
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getDailyPercent",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						console.log(result)
+						$("#gdl_d_v").html("Value :" + JSON.parse(result).dailyPercent);
+					}
+				})
+				.catch(function(err){
+					loaderView(0);
+					Materialize.toast('Error!', 4000)
+				});
+			});
+
+
+
+			$("#snav_btn").click(function(){
+
+				var data = {
+					"cnav":$("#snav_val").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/setCNAV",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						console.log(result)
+						$("#snav_d_v").html("Value :" + result);
+					}
+				})
+				.catch(function(err){
+					loaderView(0);
+					Materialize.toast('Error!', 4000)
+				});
+			});
+
+
+			$("#sdl_btn").click(function(){
+
+				var data = {
+					"dP":$("#sdl_val").val()
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/setDL",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						console.log(result)
+						$("#sdl_d_v").html("Value :" + result);
+					}
+				})
+				.catch(function(err){
+					loaderView(0);
+					Materialize.toast('Error!', 4000)
+				});
 			});
 
 	</script>

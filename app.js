@@ -150,7 +150,7 @@ app.get('/superPanel',auth_su,function(req,res){
 
 
 
-/////////////////////////////////////////// API's ////////////////////////////////////////////////////
+/////////////////////////////////////////// SUPER ADMIN API's ////////////////////////////////////////////////////
 
 app.post('/su/transfer',auth_su,function(req,res){
   var options = { method: 'POST',
@@ -352,12 +352,6 @@ app.post('/su/getOwnerAccnt',auth_su_api,function(req,res){
 });
 
 
-app.post('/su/getRecentTransactionReq',auth_su_api,function(req,res){
-
-
-});
-
-
 
 
 app.post('/su/getTotalSupply',auth_su_api,function(req,res){
@@ -403,6 +397,36 @@ app.post('/su/removeUser',auth_su_api,function(req,res){
   });
 
 });
+
+
+
+
+///////////////////////////////////////////////////// ADMIN API's////////////////////////////////////////////
+
+
+app.post('/a/getRecentTransactionReq',auth,function(req,res){
+
+  var options = { method: 'GET',
+      url: config.dashboard_ip +'getTxListForAdmin',
+      headers: 
+       { 'cache-control': 'no-cache' } };
+
+    request(options, function (error, response, body) {
+        if (error)
+        {
+          res.send("0")
+        }
+        else{
+          res.send(body)
+        }
+    });
+
+});
+
+
+
+
+
 
 
 app.post('/a/performTxDollarToSIP',auth,function(req,res){
@@ -519,7 +543,119 @@ app.post('/a/performTxETHToETH',auth,function(req,res){
 
 });
 
+
+app.post('/a/completeTx',auth,function(req,res){
+
+  var options = { method: 'POST',
+      url: config.dashboard_ip +'completeTransaction',
+      headers: 
+       { 'Cache-Control': 'no-cache',
+         'Content-Type': 'application/x-www-form-urlencoded' },
+      form: { TID: req.body.TID, hash: req.body.hash  } };
+
+    request(options, function (error, response, body) {
+      if (error){
+        res.send("0");
+      }
+      else
+      {
+        res.send(body);
+      }
+    });
+
+});
+
 ////////////////////////////////////////////// SET VALUES /////////////////////////////////////////////////////
+
+
+
+
+app.post('/su/setCNAV',auth_su_api,function(req,res){
+    var options = { method: 'POST',
+      url: config.dashboard_ip +'currentCNAV',
+      headers: 
+       { 'Cache-Control': 'no-cache',
+         'Content-Type': 'application/x-www-form-urlencoded' },
+      form: { CNAV: req.body.cnav } };
+
+    request(options, function (error, response, body) {
+      if (error){
+        res.send(error);
+      }
+      else
+      {
+        res.send(body);
+      }
+    });
+
+});
+
+
+app.post('/su/setDL',auth_su_api,function(req,res){
+    var options = { method: 'POST',
+      url: config.dashboard_ip +'setDailyPercent',
+      headers: 
+       { 'Cache-Control': 'no-cache',
+         'Content-Type': 'application/x-www-form-urlencoded' },
+      form: { dailyPercent: req.body.dP } };
+
+    request(options, function (error, response, body) {
+      if (error){
+        res.send(error);
+      }
+      else
+      {
+        res.send(body);
+      }
+    });
+
+});
+
+
+app.post('/su/getCNAV',function(req,res){
+    var options = { method: 'GET',
+      url: config.dashboard_ip +'getCNAV',
+      headers: 
+       { 'Cache-Control': 'no-cache',
+         'Content-Type': 'application/x-www-form-urlencoded' },
+      form: { }
+       };
+
+    request(options, function (error, response, body) {
+      if (error){
+        res.send(error);
+      }
+      else
+      {
+        res.send(body);
+      }
+    });
+
+});
+
+
+app.post('/su/getDailyPercent',function(req,res){
+    var options = { method: 'GET',
+      url: config.dashboard_ip +'getDailyPercent',
+      headers: 
+       { 'Cache-Control': 'no-cache',
+         'Content-Type': 'application/x-www-form-urlencoded' },
+      form: { }
+       };
+
+    request(options, function (error, response, body) {
+      if (error){
+        res.send(error);
+      }
+      else
+      {
+        res.send(body);
+      }
+    });
+
+});
+
+
 
 
 

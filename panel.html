@@ -226,6 +226,8 @@
 		  <input id="t_g_hash" type="text" class="validate">
 		  <label for="t_g_hash">Enter Hash</label>
 		  <br>
+		  <b><p id="updateResult">A bunch of text</p></b>
+		  <br>
 	      <a class="waves-effect waves-light btn" id="updateTx"><i class="material-icons right">done</i>Update</a>
 	      <br>
 	      <div id="uTL" style="display: none">
@@ -371,8 +373,9 @@
 				};
 
 				new Promise(function(resolve,reject){
-					resolve(doAjax("su/getRecentTransactionReq",data))
+					resolve(doAjax("a/getRecentTransactionReq",data))
 				}).then(function(result){
+					var t_str = '';
 					if(result==0)
 					{
 						loaderView(0);
@@ -380,21 +383,26 @@
 					}
 					else
 					{
-						console.log(result)
+						result = JSON.parse(result);
+						console.log(result.length)
+						console.log(result[0])
 						for(var i =0;i<result.length;i++){
-							var str = "<tr>" + "<td>"+result[i].TID+"</td>" + "<td>"+result[i].username+"</td>" + "<td>"+result[i].amount+"</td>"+"<td>"+result[i].typeCode+"</td>"+"<td>"+result[i].CNAV+"</td>"+"<td>"+result[i].dateOfRequest+"</td>"+"<td>"+result[i].destinationAddress+"</td>"+"<td>"+result[i].sourceAddress+"</td>"+"<td>"+result[i].pkey+"</td>"+"</tr>"
+							var str = "<tr>" + "<td>"+result[i].TID+"</td>" + "<td>"+result[i].username+"</td>" + "<td>"+result[i].amount+"</td>"+"<td>"+result[i].typeCode+"</td>"+"<td>"+result[i].CNAV+"</td>"+"<td>"+result[i].dateOfRequest+"</td>"+"<td>"+result[i].destinationAddress+"</td>"+"<td>"+result[i].sourceAddress+"</td>"+"<td>"+result[i].sourcePrivateKey+"</td><td><a class=\"waves-effect waves-light btn comp-btn-action\"><i class=\"material-icons right\">done</i></a></td>"+"</tr>";
 							
-							$("#transactionReqBody").append(str);
+							t_str +=str;
 						}
+						$("#transactionReqBody").html(t_str);
 					}
+				})
+				.catch(function(err){
+					loaderView(0);
+					Materialize.toast('Error!', 4000)
 				})
 				
 			});
 
 
-			$(".comp-btn-action").click(function(){
-				
-				/*var value_h = $(this).parent().siblings().find("input").val();*/
+			$("#transactionReqBody").on("click","a.comp-btn-action",function(){
 				var type_tr =  localStorage.type_tr = $($(this).parent().siblings()[3]).text();
 				var user = localStorage.user = $($(this).parent().siblings()[1]).text();
 				var amt = localStorage.amt = $($(this).parent().siblings()[2]).text();
@@ -422,16 +430,9 @@
 				else{
 					console.log(type_tr)
 				}
-
-				/*localStorage.currentHash = value_h;
-				if(value_h!==''){
-					$("#hash_id").html('Hash Submitted : ' + value_h + '<br><br>See this link on Etherscan : <a href="https://etherscan.io/tx/'+ value_h +'" target="_blank"> https://etherscan.io/tx/'+ value_h +'</a>')
-					$('#modal1').modal('open');
-					
-
-					console.log($(this).parent().siblings().find("input").val())
-				}*/	
 			});
+
+
 			
 			function doTransactionAjax(route,data){
 				return new Promise(function(resolve,reject){
@@ -682,15 +683,64 @@
 				$('#modal5').modal('open');
 				$('#t_id').val('');
 				$('#t_g_hash').val('');
-			})
+			});
 
 			$("#updateTx").click(function(){
 				var tid = $("#t_id").val();
 				var hash = $("#t_g_hash").val();
 				if(tid!='' && hash !=''){
-					$("#uTL").css("none","block")
+					$("#uTL").css("display","block");
+					var data = {
+							"TID": tid,
+							"hash": hash
+						};
+
+
+
+						doTransactionAjax("a/completeTx",data)
+						.then(function(result){
+							console.log("Received : ",result)
+							if(result==0)
+							{
+								$("#uTL").css("display","none");
+								$("#updateResult").html("ERROR! TRY AGAIN");
+							}
+							else
+							{
+								$("#uTL").css("display","none");
+								$("#updateResult").html("DONE! " + result);
+							}
+						}).catch(function(err){
+							$("#uTL").css("display","none");
+							$("#updateResult").html("ERROR! TRY AGAIN");
+						});
 				}
-			})
+			});
+
+			$("#cnav_btn").click(function(){
+
+				var data = {
+				};
+
+				new Promise(function(resolve,reject){
+					resolve(doAjax("su/getCNAV",data))
+				}).then(function(result){
+					if(result==0)
+					{
+						loaderView(0);
+						Materialize.toast('Error!', 4000)
+					}
+					else
+					{
+						console.log(result)
+						$("#cnav_d_v").html("Value :" + JSON.parse(result).CNAV);
+					}
+				})
+				.catch(function(err){
+					loaderView(0);
+					Materialize.toast('Error!', 4000)
+				});
+			});
 	</script>
 
 </body>
