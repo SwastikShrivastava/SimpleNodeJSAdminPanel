@@ -463,7 +463,7 @@ app.post('/a/performTxDollarToSIP',auth,function(req,res){
 app.post('/a/performTxSIPToETH',auth,function(req,res){
 
   var options = { method: 'POST',
-                      url: config.b_chain_ip +'dollarToSip',
+                      url: config.b_chain_ip +'sipToEther',
                       headers: 
                        { 'cache-control': 'no-cache',
                          'content-type': 'application/x-www-form-urlencoded' },
@@ -491,7 +491,7 @@ app.post('/a/performTxSIPToETH',auth,function(req,res){
 app.post('/a/performTxETHToSIP',auth,function(req,res){
 
   var options = { method: 'POST',
-                      url: config.b_chain_ip +'dollarToSip',
+                      url: config.b_chain_ip +'etherToSip',
                       headers: 
                        { 'cache-control': 'no-cache',
                          'content-type': 'application/x-www-form-urlencoded' },
@@ -519,7 +519,7 @@ app.post('/a/performTxETHToSIP',auth,function(req,res){
 app.post('/a/performTxETHToETH',auth,function(req,res){
 
   var options = { method: 'POST',
-                      url: config.b_chain_ip +'dollarToSip',
+                      url: config.b_chain_ip +'etherToEther',
                       headers: 
                        { 'cache-control': 'no-cache',
                          'content-type': 'application/x-www-form-urlencoded' },

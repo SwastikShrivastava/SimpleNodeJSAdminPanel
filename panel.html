@@ -411,20 +411,20 @@
 				var pKey= localStorage.pKey = $($(this).parent().siblings()[8]).text();
 				if(type_tr ==1)
 				{
-					$("#hash_id_1").html('User : ' +user+ ' wants to convert '+amt+ ' dollars to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
+					$("#hash_id_1").html('User : ' +user+ ' wants to convert '+amt+ ' dollars to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/address/'+ sourceAddress +'</a>')
 					$('#modal1').modal('open');
 				}
 				else if(type_tr ==2){
-					$("#hash_id_2").html('User : ' +user+ ' wants to convert '+amt+ ' SIP to equivalent ETH at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
+					$("#hash_id_2").html('User : ' +user+ ' wants to convert '+amt+ ' SIP to equivalent ETH at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/address/'+ sourceAddress +'</a>')
 					$('#modal2').modal('open');
 				}
 				else if(type_tr ==3){
-					$("#hash_id_3").html('User : ' +user+ ' wants to convert '+amt+ ' ETH to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
+					$("#hash_id_3").html('User : ' +user+ ' wants to convert '+amt+ ' ETH to equivalent SIP at '+cnav+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/address/'+ sourceAddress +'</a>')
 					$('#modal3').modal('open');
 				}
 				else if(type_tr ==4){
 					var destAddr = localStorage.destAddr = $($(this).parent().siblings()[6]).text();
-					$("#hash_id_4").html('User : ' +user+ ' wants to send '+amt+ ' ETH to this ETH address: '+destAddr+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/tx/'+ sourceAddress +'</a>')
+					$("#hash_id_4").html('User : ' +user+ ' wants to send '+amt+ ' ETH to this ETH address: '+destAddr+ '.<br><br>See his wallet on Etherscan : <a href="https://etherscan.io/address/'+ sourceAddress +'" target="_blank"> https://etherscan.io/address/'+ sourceAddress +'</a>')
 					$('#modal4').modal('open');
 				}
 				else{
