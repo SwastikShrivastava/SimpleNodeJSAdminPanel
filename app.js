@@ -613,6 +613,7 @@ app.post('/su/setDL',auth_su_api,function(req,res){
 
 
 app.post('/su/getCNAV',function(req,res){
+  console.log("here");
     var options = { method: 'GET',
       url: config.dashboard_ip +'getCNAV',
       headers: 
@@ -623,10 +624,12 @@ app.post('/su/getCNAV',function(req,res){
 
     request(options, function (error, response, body) {
       if (error){
+        console.log("Err",error);
         res.send(error);
       }
       else
       {
+        console.log("S:",body);
         res.send(body);
       }
     });
